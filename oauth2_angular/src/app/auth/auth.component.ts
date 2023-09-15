@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { take } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -12,7 +12,7 @@ import { HttpHeaders } from '@angular/common/http';
 export class AuthComponent implements OnInit {
   public data: string = 'some data here!';
 
-  constructor(private authService: AuthService, private activateRoute: ActivatedRoute) {
+  constructor(private authService: AuthService, private activateRoute: ActivatedRoute, private router: Router) {
     this.getAuthorizationCode();
   }
 
@@ -22,6 +22,7 @@ export class AuthComponent implements OnInit {
       if((tokens as any)?.id_token){
         sessionStorage.setItem('id_token', (tokens as any).id_token);
         sessionStorage.setItem('refresh_token', (tokens as any).refresh_token);
+        this.router.navigate(['/home']);
       }
     })
   }
@@ -34,8 +35,4 @@ export class AuthComponent implements OnInit {
       }
     })
   }
-
-  // ngOnDestroy() {
-  //   this.subscription.unsubscribe();
-  // }
 }

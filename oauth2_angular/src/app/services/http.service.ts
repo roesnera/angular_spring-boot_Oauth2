@@ -14,6 +14,8 @@ export class HttpService {
   }
 
   doGet(url: string, options: { headers: HttpHeaders }) {
-
+      const response =  this.httpClient.get<string>(url, options);
+      console.log(response);
+      return response;
   }
 }
