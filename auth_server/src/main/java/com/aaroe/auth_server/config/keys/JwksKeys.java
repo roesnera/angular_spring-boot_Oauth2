@@ -13,6 +13,7 @@ public class JwksKeys {
     public static RSAKey generateRsaKey() {
         try {
             KeyPairGenerator g = KeyPairGenerator.getInstance("RSA");
+            g.initialize(2048);
             var keyPair = g.generateKeyPair();
 
             RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
