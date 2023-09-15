@@ -9,10 +9,11 @@ export class HttpService {
   constructor(private httpClient: HttpClient) { }
 
   doPost(url: string, body: any, options: { headers: HttpHeaders }) {
+    // console.log(options);
     return this.httpClient.post(url, body, options);
   }
 
   doGet(url: string, options: { headers: HttpHeaders }) {
-    
+
   }
 }
