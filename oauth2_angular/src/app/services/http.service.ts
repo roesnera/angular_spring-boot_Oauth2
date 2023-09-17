@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +14,13 @@ export class HttpService {
     return this.httpClient.post(url, body, options);
   }
 
-  doGet(url: string, options: { headers: HttpHeaders }) {
-      const response =  this.httpClient.get<string>(url, options);
+  doGet(url: string, options: { headers: HttpHeaders } | void) {
+      let response;
+      if(!!options){
+        response =  this.httpClient.get(url, options);
+      } else {
+        response = this.httpClient.get(url);
+      }
       console.log(response);
       return response;
   }

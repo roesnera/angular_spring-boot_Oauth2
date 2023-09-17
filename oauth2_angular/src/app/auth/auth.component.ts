@@ -17,14 +17,14 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.getToken().pipe(take(1)).subscribe((tokens) => {
-      console.log((tokens as any)?.id_token);
-      if((tokens as any)?.id_token){
-        sessionStorage.setItem('id_token', (tokens as any).id_token);
-        sessionStorage.setItem('refresh_token', (tokens as any).refresh_token);
-        this.router.navigate(['/home']);
-      }
-    })
+    // this.authService.getToken().pipe(take(1)).subscribe((tokens) => {
+    //   console.log((tokens as any)?.id_token);
+    //   if((tokens as any)?.id_token){
+    //     sessionStorage.setItem('id_token', (tokens as any).id_token);
+    //     sessionStorage.setItem('refresh_token', (tokens as any).refresh_token);
+    //     this.router.navigate(['/home']);
+    //   }
+    // })
   }
 
   // getAuthorizationCode() {
@@ -37,12 +37,11 @@ export class AuthComponent implements OnInit {
   // }
   
   getAuthorizationCode() {
-    this.activateRoute.queryParams.subscribe((params) => {
-      console.log(params);
-      if(params?.['access_token']){
-        this.authService.code = params['access_token'];
-        console.log('this.code = '+this.authService.code)
-      }
-    })
+    const tokenFragment = this.activateRoute.snapshot.fragment;
+    const endOfToken = tokenFragment?.indexOf('&token');
+    const justToken = tokenFragment?.substring(13, endOfToken);
+    console.log(tokenFragment);
+    console.log(justToken);
+    if(justToken) sessionStorage.setItem('access_token', justToken);
   }
 }

@@ -14,12 +14,12 @@ export class AuthService {
   constructor(private httpService: HttpService) { }
 
   getToken(){
-    const mockUserClient = '446969406485-c4rqf035se27h2q34n9upkbs7vbg83du.apps.googleusercontent.com';
-    const mockUserSecret = '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';
+    const mockUserClient = 'a92e3a6821d6ff00f16b';
+    const mockUserSecret = '079f9ef8fa281b1acd8b8d444354463910cb50b6';
     const basicAuth = 'Basic '+Buffer.from(`${mockUserClient}:${mockUserSecret}`).toString('base64');
     const headers = new HttpHeaders({
       'content-type': 'application/json',
-      'Authorization': basicAuth
+      // 'Authorization': basicAuth
     });
     const options = {
       headers: headers

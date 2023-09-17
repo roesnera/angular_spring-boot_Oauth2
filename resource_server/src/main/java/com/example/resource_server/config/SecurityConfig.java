@@ -3,8 +3,10 @@ package com.example.resource_server.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+
 
 @Configuration
 @RequiredArgsConstructor
@@ -15,7 +17,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         corsCustomizer.corsCustomizer(http);
-        http.oauth2ResourceServer(j -> j.jwt(jwtConfigurer -> jwtConfigurer.jwkSetUri("http://localhost:8080/oauth2/jwks")))
+//        http.oauth2ResourceServer(j -> j.jwt(jwtConfigurer -> jwtConfigurer.jwkSetUri("http://localhost:8080/oauth2/jwks")))
+//                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
+        http.oauth2ResourceServer(j -> j.jwt(withDefaults()))
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated());
 
         return http.build();
