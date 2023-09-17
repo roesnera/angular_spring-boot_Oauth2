@@ -27,10 +27,20 @@ export class AuthComponent implements OnInit {
     })
   }
 
+  // getAuthorizationCode() {
+  //   this.activateRoute.queryParams.subscribe((params) => {
+  //     if(params?.['code']){
+  //       this.authService.code = params['code'];
+  //       console.log('this.code = '+this.authService.code)
+  //     }
+  //   })
+  // }
+  
   getAuthorizationCode() {
     this.activateRoute.queryParams.subscribe((params) => {
-      if(params?.['code']){
-        this.authService.code = params['code'];
+      console.log(params);
+      if(params?.['access_token']){
+        this.authService.code = params['access_token'];
         console.log('this.code = '+this.authService.code)
       }
     })
