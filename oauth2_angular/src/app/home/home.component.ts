@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { HttpService } from '../services/http.service';
 import { demo } from '../constants/demo';
 import { gmail } from '../constants/gmail';
+import { gmailDrafts } from '../constants/gmailDrafts';
 import { take } from 'rxjs';
 
 @Component({
@@ -14,6 +15,8 @@ export class HomeComponent {
   constructor(private httpService: HttpService){}
 
   public demoContent: any = '';
+  public emailDrafts: any = '';
+  public userID: any = '';
 
   ngOnInit() {
     this.getDemoInformation();
@@ -38,6 +41,15 @@ export class HomeComponent {
     firstResponse.subscribe((content) => {
       console.log(content);
       this.demoContent = (content as any)?.email;
+      // this.userID = (content as any)?.user_id;
+      // console.log(this.userID);
+    })
+
+    
+    const emailDrafts = this.httpService.doGet(gmailDrafts(token, "me"), options);
+    const firstDraft = emailDrafts.pipe(take(1));
+    firstDraft.subscribe((content) => {
+     console.log(content); 
     })
   }
 }
